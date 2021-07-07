@@ -1,4 +1,5 @@
-
+#ifndef FANCY_DICE_H
+#define FANCY_DICE_H
 
 typedef enum { d4 = 4, d6 = 6, d8 = 8, d10 = 10, d12 = 12, d20 = 20 } dice_type;
 
@@ -10,3 +11,5 @@ int roll(int num, dice_type dice);  // rolls num amount of specified dice type
 int roll_percentile(void);          // rolls a percentile (2 d10) returns 1->100
 
 //void test_wheels(void); // test out the wheels
+
+#endif // FANCY_DICE_H
