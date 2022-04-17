@@ -29,11 +29,11 @@ Calling this function should be intuitively familiar.
 
 ### Under the Hood - fancy_dice.c
 
-This dice simulator runs on top of a simple [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator) algorithm. The PRNG seed, **x**, is a 32-bit unsigned integer value. The constants **a** and **c** were chosen to maximize the period of the PRNG.
+This dice simulator runs on top of a simple [linear congruential generator](https://en.wikipedia.org/wiki/Linear_congruential_generator) algorithm. The PRNG seed, **x**, is a 32-bit unsigned integer value. The values **a** and **c** were chosen to maximize the period of the PRNG.
 
-Instead of having **a** and **c** exist as constants, the values are calculated by using what I have referred to in code as a *wheel*. A *wheel* is a [circular prime number](https://en.wikipedia.org/wiki/Circular_prime). As such, the digits of the wheels can be "turned" by moving the last digit to the first position, and the number will remain prime.
+The values **a** and **c** are not constants. Instead, they hold [circular prime numbers](https://en.wikipedia.org/wiki/Circular_prime). The last digit of each can be moved to the first position and vice versa, and the resulting number will always also be prime no matter how many times this is done. For this reason, I have referred to these numbers as *wheels* which can be "turned" to change the behavior of the PRNG.
 
-When **shake_dice**() is called, the wheels rotate algorithmically such that the values **a** and **c**, which govern the PRNG, are different. This function could be used based on some other input to make the next roll appear less deterministic.
+When **shake_dice**() is called, the wheels are turned to change the PRNG behavior. This function could be used based on some other input to make the next roll appear less deterministic.
 
 When the PRNG is rolled, the least significant 16 bits is thrown away via bitshift. If the resulting 16 bit number is larger than 65520, the result is thrown away and the PRNG is rolled again. The results of the various functions use this value and modulus math to return a die result.
 
